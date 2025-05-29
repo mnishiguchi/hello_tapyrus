@@ -1,0 +1,3 @@
+# Persist Tapyrus chain data & wallet between runs
+/data/*
+!/data/.keep

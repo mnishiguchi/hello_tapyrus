@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+#
+# Shortcut for running tapyrus-cli inside the running tapyrusd container.
+#
+# Usage:
+#   ./scripts/tapyrus-cli <RPC_METHOD> [args…]
+#
+# Common examples:
+#   # Show basic chain status
+#   scripts/tapyrus-cli getblockchaininfo
+#
+#   # Get a fresh address from the default wallet
+#   scripts/tapyrus-cli getnewaddress
+#
+#   # List your UTXOs
+#   scripts/tapyrus-cli listunspent
+#
+#   # Mine 1 block to a newly generated address
+#   scripts/tapyrus-cli generatetoaddress 1 "$(scripts/tapyrus-cli getnewaddress)" cUJN5RVzYWFoeY8rUztd47jzXCu1p57Ay8V7pqCzsBD3PEXN7Dd4
+#
+#   # Check your wallet balance
+#   scripts/tapyrus-cli getbalance
+#
+#   # List loaded wallets
+#   scripts/tapyrus-cli listwallets
+#
+#   # Decode a raw transaction
+#   scripts/tapyrus-cli decoderawtransaction <tx_hex>
+#
+set -euo pipefail
+
+# ensure we’re in the repo root so `docker compose` finds the config
+cd "$(dirname "$0")/.."
+
+docker compose exec tapyrusd \
+  tapyrus-cli \
+    -conf=/etc/tapyrus/tapyrus.conf \
+    -rpcport=2377 \
+    "$@"
+
