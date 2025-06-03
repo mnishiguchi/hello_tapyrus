@@ -32,8 +32,7 @@ Learn more:
 ├── tapyrus.conf
 ├── data/
 └── tapyrus-client/
-    ├── Dockerfile.dev
-    └── irbrc
+    └── Dockerfile.dev 
 ```
 
 - **`docker-compose.yml`**
@@ -44,7 +43,7 @@ Learn more:
 - **`data/`**
   Persists blockchain & wallet data between runs.
 - **`tapyrus-client/`**
-  Builds Ruby image with `tapyrus`‐gem and `.irbrc` to auto-initialize `$client`.
+  Builds Ruby image with `tapyrus`‐gem.
 
 ## Quick Start
 
