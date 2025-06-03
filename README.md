@@ -1,22 +1,22 @@
 # Tapyrus Dev Environment
 
 A minimal Docker Compose setup to run a single-node Tapyrus Core chain in
-**dev** mode, plus an interactive Ruby REPL connected to the node’s RPC.
+dev mode, plus an interactive Ruby REPL connected to the node’s RPC.
 
 ## What is Tapyrus?
 
 Tapyrus is an open-source, federated blockchain platform developed by [Chaintope](https://www.chaintope.com/).
 
-- **Federated Network**: Multiple “signers” produce blocks with a threshold Schnorr signature scheme.
-- **Custom Tokens**: Supports colored-coin style tokens (`OP_COLOR`) alongside native TPC.
-- **Dev Mode (“regtest”)**: Spin up a self-contained, single-node chain for rapid development.
+- Federated Network: Multiple “signers” produce blocks with a threshold Schnorr signature scheme.
+- Custom Tokens: Supports colored-coin style tokens (`OP_COLOR`) alongside native TPC.
+- Dev Mode (“regtest”): Spin up a self-contained, single-node chain for rapid development.
 
 Learn more:
 
-- **[Tapyrus Core (GitHub)][tapyrus-core]**
-- **[Getting-Started Guide][getting-started]**
-- **[Docker Usage Docs][docker-docs]**
-- **[tapyrus/tapyrusd on Docker Hub][docker-hub]**
+- [Tapyrus Core (GitHub)][tapyrus-core]
+- [Getting-Started Guide][getting-started]
+- [Docker Usage Docs][docker-docs]
+- [tapyrus/tapyrusd on Docker Hub][docker-hub]
 
 <!-- Reference-style link targets -->
 
@@ -25,6 +25,13 @@ Learn more:
 [docker-docs]: https://github.com/chaintope/tapyrus-core/blob/master/doc/docker_image.md
 [docker-hub]: https://hub.docker.com/r/tapyrus/tapyrusd
 
+## Requirements
+
+- Docker
+- Docker Compose
+- A POSIX-compatible shell (bash, zsh, etc.)
+- Internet access to pull images and fetch the `tapyrus` gem
+
 ## Files
 
 ```
@@ -32,17 +39,17 @@ Learn more:
 ├── tapyrus.conf
 ├── data/
 └── tapyrus-client/
-    └── Dockerfile.dev 
+    └── Dockerfile.dev
 ```
 
-- **`docker-compose.yml`**
+- `docker-compose.yml`
   • `tapyrusd`: Tapyrus Core node in dev mode (imports a fixed genesis block via `GENESIS_BLOCK_WITH_SIG`).
   • `tapyrus-client`: Ruby IRB with `tapyrus`‐gem, auto-connected to RPC.
-- **`tapyrus.conf`**
+- `tapyrus.conf`
   Dev-mode settings (networkid=1905960821, RPC credentials, keypool, bind, etc.).
-- **`data/`**
+- `data/`
   Persists blockchain & wallet data between runs.
-- **`tapyrus-client/`**
+- `tapyrus-client/`
   Builds Ruby image with `tapyrus`‐gem.
 
 ## Quick Start
@@ -124,7 +131,7 @@ A typical response looks like:
 You now have 50 TPC ready to spend. Feel free to send transactions, create
 colored tokens, or explore other Tapyrus features.
 
-> **Tips**
+> Tips
 >
 > - `$client.dumpprivkey(addr)` shows the private key for any address.
 > - You may see references to `$client.generate(101, agg_wif)`, but this method is deprecated.
@@ -134,10 +141,10 @@ colored tokens, or explore other Tapyrus features.
 
 When you’re done developing and want to stop the node:
 
-1. **Exit the Ruby IRB session**
+1. Exit the Ruby IRB session
    In your IRB terminal, type `exit` or press `Ctrl-D`. This will automatically stop the `tapyrus-client` container.
 
-2. **Stop all running containers & remove volumes**
+2. Stop all running containers & remove volumes
    From your project root (where `docker-compose.yml` lives), run:
 
    ```bash
@@ -148,4 +155,4 @@ When you’re done developing and want to stop the node:
    - `--remove-orphans` cleans up any leftover containers not defined in your compose file.
 
 At this point, no Tapyrus containers are running. To restart later (preserving
-existing chain data), simply run through the **Quick Start** steps again.
+existing chain data), simply run through the Quick Start steps again.
